@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Identity.API.Migrations
+﻿namespace Identity.API.Migrations
 {
     public partial class InitialMigration : Migration
     {

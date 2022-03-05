@@ -164,7 +164,7 @@ public class EventBusServiceBus : IEventBus, IDisposable
                     {
                         var handler = scope.ResolveOptional(subscription.HandlerType) as IDynamicIntegrationEventHandler;
                         if (handler == null) continue;
-                        
+
                         using dynamic eventData = JsonDocument.Parse(message);
                         await handler.Handle(eventData);
                     }

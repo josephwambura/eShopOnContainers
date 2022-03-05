@@ -90,7 +90,7 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API
             services.AddRazorPages();
 
             var container = new ContainerBuilder();
-            container.Populate(services);   
+            container.Populate(services);
 
             return new AutofacServiceProvider(container.Build());
         }
@@ -110,7 +110,7 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }            
+            }
 
             var pathBase = Configuration["PATH_BASE"];
             if (!string.IsNullOrEmpty(pathBase))
@@ -137,7 +137,7 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API
             // To avoid this problem, the policy of cookies shold be in Lax mode.
             app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = AspNetCore.Http.SameSiteMode.Lax });
             app.UseRouting();
-                        
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

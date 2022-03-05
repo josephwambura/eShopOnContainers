@@ -36,7 +36,7 @@ public class OrderingScenarios : OrderingScenariosBase
         }
     }
 
-    async Task<Order> TryGetOrder(string orderNumber, HttpClient orderClient)
+    static async Task<Order> TryGetOrder(string orderNumber, HttpClient orderClient)
     {
         var ordersGetResponse = await orderClient.GetStringAsync(OrderingScenariosBase.Get.Orders);
         var orders = JsonSerializer.Deserialize<List<Order>>(ordersGetResponse, new JsonSerializerOptions
@@ -47,7 +47,7 @@ public class OrderingScenarios : OrderingScenariosBase
         return orders.Single(o => o.OrderNumber == orderNumber);
     }
 
-    private async Task<Order> TryGetNewOrderCreated(string city, HttpClient orderClient)
+    private static async Task<Order> TryGetNewOrderCreated(string city, HttpClient orderClient)
     {
         var counter = 0;
         Order order = null;
@@ -69,47 +69,51 @@ public class OrderingScenarios : OrderingScenariosBase
             }
 
             var lastOrder = orders.OrderByDescending(o => o.Date).First();
-            int.TryParse(lastOrder.OrderNumber, out int id);
-            var orderDetails = await orderClient.GetStringAsync(OrderingScenariosBase.Get.OrderBy(id));
-            order = JsonSerializer.Deserialize<Order>(orderDetails, new JsonSerializerOptions
+            if (int.TryParse(lastOrder.OrderNumber, out int id))
             {
-                PropertyNameCaseInsensitive = true
-            });
-                
-            order.City = city;
+                var orderDetails = await orderClient.GetStringAsync(OrderingScenariosBase.Get.OrderBy(id));
+                order = JsonSerializer.Deserialize<Order>(orderDetails, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
 
-            if (IsOrderCreated(order, city))
-            {
-                break;
+                order.City = city;
+
+                if (IsOrderCreated(order, city))
+                {
+                    break;
+                }
             }
         }
 
         return order;
     }
 
-    private bool IsOrderCreated(Order order, string city)
+    private static bool IsOrderCreated(Order order, string city)
     {
         return order.City == city;
     }
 
-    string BuildBasket()
+    static string BuildBasket()
     {
-        var order = new CustomerBasket("9e3163b9-1ae6-4652-9dc6-7898ab7b7a00");
-        order.Items = new List<Microsoft.eShopOnContainers.Services.Basket.API.Model.BasketItem>()
+        var order = new CustomerBasket("9e3163b9-1ae6-4652-9dc6-7898ab7b7a00")
         {
-            new Microsoft.eShopOnContainers.Services.Basket.API.Model.BasketItem()
+            Items = new List<Microsoft.eShopOnContainers.Services.Basket.API.Model.BasketItem>()
             {
-                Id = "1",
-                ProductName = "ProductName",
-                ProductId = 1,
-                UnitPrice = 10,
-                Quantity = 1
+                new Microsoft.eShopOnContainers.Services.Basket.API.Model.BasketItem()
+                {
+                    Id = "1",
+                    ProductName = "ProductName",
+                    ProductId = 1,
+                    UnitPrice = 10,
+                    Quantity = 1
+                }
             }
         };
         return JsonSerializer.Serialize(order);
     }
 
-    string BuildCancelOrder(string orderId)
+    static string BuildCancelOrder(string orderId)
     {
         var order = new OrderDTO()
         {
@@ -118,7 +122,7 @@ public class OrderingScenarios : OrderingScenariosBase
         return JsonSerializer.Serialize(order);
     }
 
-    string BuildCheckout(string cityExpected)
+    static string BuildCheckout(string cityExpected)
     {
         var checkoutBasket = new BasketDTO()
         {

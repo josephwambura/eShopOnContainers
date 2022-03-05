@@ -104,18 +104,19 @@ public class BasketWebApiTest
             _loggerMock.Object,
             _basketRepositoryMock.Object,
             _identityServiceMock.Object,
-            _serviceBusMock.Object);
-
-        basketController.ControllerContext = new ControllerContext()
+            _serviceBusMock.Object)
         {
-            HttpContext = new DefaultHttpContext()
+            ControllerContext = new ControllerContext()
             {
-                User = new ClaimsPrincipal(
+                HttpContext = new DefaultHttpContext()
+                {
+                    User = new ClaimsPrincipal(
                     new ClaimsIdentity(new Claim[] {
                         new Claim("sub", "testuser"),
                         new Claim("unique_name", "testuser"),
                         new Claim(ClaimTypes.Name, "testuser")
                             }))
+                }
             }
         };
 

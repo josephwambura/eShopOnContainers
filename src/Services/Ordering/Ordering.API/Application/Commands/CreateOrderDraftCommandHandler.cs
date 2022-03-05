@@ -1,7 +1,8 @@
 ﻿namespace Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands;
 
-using static Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands.CreateOrderCommand;
 using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
+
+using static Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands.CreateOrderCommand;
 
 // Regular CommandHandler
 public class CreateOrderDraftCommandHandler

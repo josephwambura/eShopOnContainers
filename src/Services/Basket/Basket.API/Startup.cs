@@ -28,7 +28,7 @@ public class Startup
             .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
 
         services.AddSwaggerGen(options =>
-        {            
+        {
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "eShopOnContainers - Basket HTTP API",

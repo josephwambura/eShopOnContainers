@@ -260,7 +260,7 @@
                     SecurityNumber = model.User.SecurityNumber
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Errors.Count() > 0)
+                if (result.Errors.Any())
                 {
                     AddErrors(result);
                     // If we got this far, something failed, redisplay form

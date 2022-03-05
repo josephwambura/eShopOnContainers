@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Identity.API.Migrations.PersistedGrantDb
+﻿namespace Identity.API.Migrations.PersistedGrantDb
 {
     public partial class InitialMigration : Migration
     {

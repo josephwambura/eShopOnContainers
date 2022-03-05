@@ -24,7 +24,7 @@ public class ValidateOrAddBuyerAggregateWhenOrderStartedDomainEventHandler
     {
         var cardTypeId = (orderStartedEvent.CardTypeId != 0) ? orderStartedEvent.CardTypeId : 1;
         var buyer = await _buyerRepository.FindAsync(orderStartedEvent.UserId);
-        bool buyerOriginallyExisted = (buyer == null) ? false : true;
+        bool buyerOriginallyExisted = buyer != null;
 
         if (!buyerOriginallyExisted)
         {

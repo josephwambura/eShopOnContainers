@@ -21,7 +21,7 @@ public abstract class Entity
 
     public void AddDomainEvent(INotification eventItem)
     {
-        _domainEvents = _domainEvents ?? new List<INotification>();
+        _domainEvents ??= new List<INotification>();
         _domainEvents.Add(eventItem);
     }
 
@@ -42,7 +42,7 @@ public abstract class Entity
 
     public override bool Equals(object obj)
     {
-        if (obj == null || !(obj is Entity))
+        if (obj == null || obj is not Entity)
             return false;
 
         if (Object.ReferenceEquals(this, obj))

@@ -83,9 +83,9 @@
 
         private ApplicationUser CreateApplicationUser(string[] column, string[] headers)
         {
-            if (column.Count() != headers.Count())
+            if (column.Length != headers.Length)
             {
-                throw new Exception($"column count '{column.Count()}' not the same as headers count'{headers.Count()}'");
+                throw new Exception($"column count '{column.Length}' not the same as headers count'{headers.Length}'");
             }
 
             string cardtypeString = column[Array.IndexOf(headers, "cardtype")].Trim('"').Trim();
@@ -161,9 +161,9 @@
         {
             string[] csvheaders = File.ReadLines(csvfile).First().ToLowerInvariant().Split(',');
 
-            if (csvheaders.Count() != requiredHeaders.Count())
+            if (csvheaders.Length != requiredHeaders.Length)
             {
-                throw new Exception($"requiredHeader count '{ requiredHeaders.Count()}' is different then read header '{csvheaders.Count()}'");
+                throw new Exception($"requiredHeader count '{ requiredHeaders.Length}' is different then read header '{csvheaders.Length}'");
             }
 
             foreach (var requiredHeader in requiredHeaders)

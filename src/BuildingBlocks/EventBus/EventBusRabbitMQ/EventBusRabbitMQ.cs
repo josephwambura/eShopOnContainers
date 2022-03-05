@@ -71,7 +71,7 @@ public class EventBusRabbitMQ : IEventBus, IDisposable
             _logger.LogTrace("Declaring RabbitMQ exchange to publish event: {EventId}", @event.Id);
 
             channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
-                                
+
             var body = JsonSerializer.SerializeToUtf8Bytes(@event, @event.GetType(), new JsonSerializerOptions
             {
                 WriteIndented = true
@@ -126,7 +126,7 @@ public class EventBusRabbitMQ : IEventBus, IDisposable
             {
                 _persistentConnection.TryConnect();
             }
- 
+
             _consumerChannel.QueueBind(queue: _queueName,
                                 exchange: BROKER_NAME,
                                 routingKey: eventName);
@@ -253,7 +253,7 @@ public class EventBusRabbitMQ : IEventBus, IDisposable
                     {
                         var handler = scope.ResolveOptional(subscription.HandlerType) as IDynamicIntegrationEventHandler;
                         if (handler == null) continue;
-                        using dynamic eventData = JsonDocument.Parse(message);                            
+                        using dynamic eventData = JsonDocument.Parse(message);
                         await Task.Yield();
                         await handler.Handle(eventData);
                     }
@@ -262,7 +262,7 @@ public class EventBusRabbitMQ : IEventBus, IDisposable
                         var handler = scope.ResolveOptional(subscription.HandlerType);
                         if (handler == null) continue;
                         var eventType = _subsManager.GetEventTypeByName(eventName);
-                        var integrationEvent = JsonSerializer.Deserialize(message, eventType, new JsonSerializerOptions() { PropertyNameCaseInsensitive= true});                            
+                        var integrationEvent = JsonSerializer.Deserialize(message, eventType, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                         var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
 
                         await Task.Yield();

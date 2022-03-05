@@ -1,13 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Options;
-using System.Net;
-using System.Net.Http;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+
 using System.Net.Http.Formatting;
-using System.Threading.Tasks;
-using WebhookClient.Models;
-using System.Text.Json;
 
 namespace WebhookClient.Pages
 {
@@ -45,7 +38,7 @@ namespace WebhookClient.Pages
             var selfurl = !string.IsNullOrEmpty(_settings.SelfUrl) ? _settings.SelfUrl : $"{protocol}://{Request.Host}/{Request.PathBase}";
             if (!selfurl.EndsWith("/"))
             {
-                selfurl = selfurl + "/";
+                selfurl += "/";
             }
             var granturl = $"{selfurl}check";
             var url = $"{selfurl}webhook-received";

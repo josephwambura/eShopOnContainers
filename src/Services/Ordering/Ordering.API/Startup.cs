@@ -134,8 +134,8 @@ static class CustomExtensionsMethods
             })
             // Added for functional tests
             .AddApplicationPart(typeof(OrdersController).Assembly)
-            .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true)
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
+        //.SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
         services.AddCors(options =>
         {
@@ -214,7 +214,7 @@ static class CustomExtensionsMethods
     public static IServiceCollection AddCustomSwagger(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSwaggerGen(options =>
-        {            
+        {
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "eShopOnContainers - Ordering HTTP API",

@@ -1,6 +1,4 @@
-﻿using Microsoft.eShopOnContainers.Services.Ordering.Domain.Events;
-
-namespace Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
+﻿namespace Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
 
 public class Order
     : Entity, IAggregateRoot
@@ -37,8 +35,10 @@ public class Order
 
     public static Order NewDraft()
     {
-        var order = new Order();
-        order._isDraft = true;
+        var order = new Order
+        {
+            _isDraft = true
+        };
         return order;
     }
 

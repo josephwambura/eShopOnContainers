@@ -1,9 +1,9 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+
 using WebMVC.Services.ModelDTOs;
+
 using Xunit;
 
 namespace Ordering.FunctionalTests
