@@ -187,9 +187,9 @@ public class CatalogContextSeed
 
     private CatalogItem CreateCatalogItem(string[] column, string[] headers, Dictionary<String, int> catalogTypeIdLookup, Dictionary<String, int> catalogBrandIdLookup)
     {
-        if (column.Count() != headers.Count())
+        if (column.Length != headers.Length)
         {
-            throw new Exception($"column count '{column.Count()}' not the same as headers count'{headers.Count()}'");
+            throw new Exception($"column count '{column.Length}' not the same as headers count'{headers.Length}'");
         }
 
         string catalogTypeName = column[Array.IndexOf(headers, "catalogtypename")].Trim('"').Trim();
@@ -314,16 +314,16 @@ public class CatalogContextSeed
     {
         string[] csvheaders = File.ReadLines(csvfile).First().ToLowerInvariant().Split(',');
 
-        if (csvheaders.Count() < requiredHeaders.Count())
+        if (csvheaders.Length < requiredHeaders.Length)
         {
-            throw new Exception($"requiredHeader count '{ requiredHeaders.Count()}' is bigger then csv header count '{csvheaders.Count()}' ");
+            throw new Exception($"requiredHeader count '{ requiredHeaders.Length}' is bigger then csv header count '{csvheaders.Length}' ");
         }
 
         if (optionalHeaders != null)
         {
-            if (csvheaders.Count() > (requiredHeaders.Count() + optionalHeaders.Count()))
+            if (csvheaders.Length > (requiredHeaders.Length + optionalHeaders.Length))
             {
-                throw new Exception($"csv header count '{csvheaders.Count()}'  is larger then required '{requiredHeaders.Count()}' and optional '{optionalHeaders.Count()}' headers count");
+                throw new Exception($"csv header count '{csvheaders.Length}'  is larger then required '{requiredHeaders.Length}' and optional '{optionalHeaders.Length}' headers count");
             }
         }
 
